@@ -2,6 +2,7 @@ use anchor_lang::prelude::*;
 use anchor_spl::{associated_token::AssociatedToken, token_interface::{TokenAccount, TokenInterface, Mint }};
 
 #[derive(Accounts)]
+#[instruction(id:u64)]
 pub struct MakeOffer<'info> {
     #[account(mut)]
     pub maker: Signer<'info>,
@@ -19,8 +20,18 @@ pub struct MakeOffer<'info> {
     #[account(
         init, payer = maker,  space = ANCHOR_DISCRIMINATOR + Offer::INIT_SPACE, seeds = [b"offer", maker.key().as_ref(), id.to_le_bytes().as_ref()], bump
     )]
-    pub offer: Account<'info, System>,
+    pub offer: Account<'info, Offer>,
+    #[account(
+        init, payer = maker,
+         associated_token::mint = token_mint_a,
+          associated_token::authority = offer, 
+          associated_token::token_program = token_program,
+            // space = ANCHOR_DISCRIMINATOR + Offer::INIT_SPACE, seeds = [b"offer", maker.key().as_ref(), id.to_le_bytes().as_ref()], bump
+    )]
     pub vault:InterfaceAccount<'info, TokenAccount>, 
+    pub system_program:Prgoram<'info, System>,
+    pub token_program: Interface<'info,TokenInterface>,
+    pub associated_token_program: Program<'info, AssociatedToken>,
 
 }
 
