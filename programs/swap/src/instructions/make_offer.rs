@@ -29,13 +29,15 @@ pub struct MakeOffer<'info> {
             // space = ANCHOR_DISCRIMINATOR + Offer::INIT_SPACE, seeds = [b"offer", maker.key().as_ref(), id.to_le_bytes().as_ref()], bump
     )]
     pub vault:InterfaceAccount<'info, TokenAccount>, 
-    pub system_program:Prgoram<'info, System>,
+    pub system_program:Program<'info, System>,
     pub token_program: Interface<'info,TokenInterface>,
     pub associated_token_program: Program<'info, AssociatedToken>,
 
 }
 
-pub fn send_offered_tokens_to_vault(ctx: Context<MakeOffer>) -> Result<()> {
-    msg!("Greetings from: {{:?}}", ctx.program_id);
+pub fn send_offered_tokens_to_vault(context: &Context<MakeOffer>, token_a_offered_amount:u64) -> Result<()> {
+    transfer_tokens(
+        
+    )
     Ok(())
 }
