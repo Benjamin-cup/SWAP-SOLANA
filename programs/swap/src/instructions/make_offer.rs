@@ -61,8 +61,8 @@ pub fn send_offered_tokens_to_vault(context: &Context<MakeOffer>, token_a_offere
         &context.accounts.token_mint_a,
         &context.accounts.maker,
         &context.accounts.token_program,
-    );
-    Ok(())
+    )
+    // Ok(())
 }
 
 pub fn save_offer(context: Context<MakeOffer>, id: u64, token_b_wanted_amount:u64) -> Result<()> {
