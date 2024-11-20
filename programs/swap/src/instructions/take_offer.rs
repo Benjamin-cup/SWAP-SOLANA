@@ -69,7 +69,6 @@ use anchor_spl::{
  }
 
  pub fn withdraw_and_close_vault(context: Context<TakeOffer>) -> Result<()> {
-    // let seeds = &[b"offer",context.accounts.maker.to_account_info().key().as_ref(), &context.accounts.offer.id.to_le_bytes()[..], &[context.accounts.offer.bump]];
     let seeds = &[
         b"offer",
         context.accounts.maker.to_account_info().key.as_ref(),
